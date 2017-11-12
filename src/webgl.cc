@@ -193,8 +193,19 @@ NAN_METHOD(Uniform1fv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
-  glUniform1fv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    GLfloat *ptr=getArrayData<GLfloat>(float32Array,&num);
+    glUniform1fv(location, num, ptr);
+  } else {
+    GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
+    glUniform1fv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -203,10 +214,21 @@ NAN_METHOD(Uniform2fv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
-  num /= 2;
-
-  glUniform2fv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    GLfloat *ptr=getArrayData<GLfloat>(float32Array,&num);
+    num /= 2;
+    glUniform2fv(location, num, ptr);
+  } else {
+    GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
+    num /= 2;
+    glUniform2fv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -215,10 +237,21 @@ NAN_METHOD(Uniform3fv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
-  num /= 3;
-
-  glUniform3fv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    GLfloat *ptr=getArrayData<GLfloat>(float32Array,&num);
+    num /= 3;
+    glUniform3fv(location, num, ptr);
+  } else {
+    GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
+    num /= 3;
+    glUniform3fv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -227,10 +260,21 @@ NAN_METHOD(Uniform4fv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
-  num /= 4;
-
-  glUniform4fv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    GLfloat *ptr=getArrayData<GLfloat>(float32Array,&num);
+    num /= 4;
+    glUniform4fv(location, num, ptr);
+  } else {
+    GLfloat *ptr=getArrayData<GLfloat>(info[1],&num);
+    num /= 4;
+    glUniform4fv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -239,9 +283,19 @@ NAN_METHOD(Uniform1iv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLint *ptr=getArrayData<GLint>(info[1],&num);
-
-  glUniform1iv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      int32Array->Set(i, array->Get(i));
+    }
+    GLint *ptr=getArrayData<GLint>(int32Array,&num);
+    glUniform1iv(location, num, ptr);
+  } else {
+    GLint *ptr=getArrayData<GLint>(info[1],&num);
+    glUniform1iv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -250,10 +304,21 @@ NAN_METHOD(Uniform2iv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLint *ptr=getArrayData<GLint>(info[1],&num);
-  num /= 2;
-
-  glUniform2iv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      int32Array->Set(i, array->Get(i));
+    }
+    GLint *ptr=getArrayData<GLint>(int32Array,&num);
+    num /= 2;
+    glUniform2iv(location, num, ptr);
+  } else {
+    GLint *ptr=getArrayData<GLint>(info[1],&num);
+    num /= 2;
+    glUniform2iv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -262,9 +327,21 @@ NAN_METHOD(Uniform3iv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLint *ptr=getArrayData<GLint>(info[1],&num);
-  num /= 3;
-  glUniform3iv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      int32Array->Set(i, array->Get(i));
+    }
+    GLint *ptr=getArrayData<GLint>(int32Array,&num);
+    num /= 3;
+    glUniform3iv(location, num, ptr);
+  } else {
+    GLint *ptr=getArrayData<GLint>(info[1],&num);
+    num /= 3;
+    glUniform3iv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -273,9 +350,21 @@ NAN_METHOD(Uniform4iv) {
 
   int location = info[0]->Int32Value();
   int num=0;
-  GLint *ptr=getArrayData<GLint>(info[1],&num);
-  num /= 4;
-  glUniform4iv(location, num, ptr);
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    for (unsigned int i = 0; i < length; i++) {
+      int32Array->Set(i, array->Get(i));
+    }
+    GLint *ptr=getArrayData<GLint>(int32Array,&num);
+    num /= 4;
+    glUniform4iv(location, num, ptr);
+  } else {
+    GLint *ptr=getArrayData<GLint>(info[1],&num);
+    num /= 4;
+    glUniform4iv(location, num, ptr);
+  }
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
