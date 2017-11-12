@@ -1538,7 +1538,6 @@ NAN_METHOD(GetParameter) {
   case GL_RENDERER:
   case GL_SHADING_LANGUAGE_VERSION:
   case GL_VENDOR:
-  case GL_VERSION:
   case GL_EXTENSIONS:
   {
     // return a string
@@ -1550,6 +1549,12 @@ NAN_METHOD(GetParameter) {
       info.GetReturnValue().Set(Nan::Undefined());
     }
     
+    break;
+  }
+  case GL_VERSION:
+  {
+    info.GetReturnValue().Set(JS_STR("WebGL 1"));
+
     break;
   }
   case GL_MAX_VIEWPORT_DIMS:
