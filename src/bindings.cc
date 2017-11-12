@@ -438,7 +438,7 @@ void init(Handle<Object> target)
   /* StringName */
   JS_GL_CONSTANT(VENDOR);
   JS_GL_CONSTANT(RENDERER);
-  Nan::ForceSet(target, JS_STR("VERSION"), JS_STR("WebGL 1"), constant_attributes);
+  JS_GL_CONSTANT(VERSION);
   JS_GL_CONSTANT(EXTENSIONS);
 
   /* TextureMagFilter */
