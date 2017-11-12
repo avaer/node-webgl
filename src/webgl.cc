@@ -7,6 +7,8 @@
 #include <node.h>
 #include <node_buffer.h>
 #include <GL/glew.h>
+#include "GLES2/gl2platform.h"
+#include "GLES2/gl2ext.h"
 
 #ifdef _WIN32
   #define  strcasestr(s, t) strstr(strupr(s), strupr(t))
@@ -1862,7 +1864,36 @@ NAN_METHOD(GetExtension) {
   if(ext==NULL){ 
       info.GetReturnValue().Set(Nan::Undefined());
   }else{
-     info.GetReturnValue().Set(JS_STR(ext, (int)::strlen(sname))); 
+    if (strcmp(sname, "WEBGL_depth_texture") == 0) {
+      Local<Object> result = Object::New(Isolate::GetCurrent());
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "UNSIGNED_INT_24_8_WEBGL"), Number::New(Isolate::GetCurrent(), GL_UNSIGNED_INT_24_8_OES));
+      info.GetReturnValue().Set(result);
+    } else if (strcmp(sname, "EXT_texture_filter_anisotropic") == 0) {
+      Local<Object> result = Object::New(Isolate::GetCurrent());
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "MAX_TEXTURE_MAX_ANISOTROPY_EXT"), Number::New(Isolate::GetCurrent(), GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT));
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "TEXTURE_MAX_ANISOTROPY_EXT"), Number::New(Isolate::GetCurrent(), GL_TEXTURE_MAX_ANISOTROPY_EXT));
+      info.GetReturnValue().Set(result);
+    } else if (strcmp(sname, "WEBGL_compressed_texture_s3tc") == 0) {
+      Local<Object> result = Object::New(Isolate::GetCurrent());
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGB_S3TC_DXT1_EXT"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGB_S3TC_DXT1_EXT));
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGBA_S3TC_DXT1_EXT"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGBA_S3TC_DXT1_EXT));
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGBA_S3TC_DXT3_EXT"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGBA_S3TC_DXT3_EXT));
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGBA_S3TC_DXT5_EXT"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGBA_S3TC_DXT5_EXT));
+      info.GetReturnValue().Set(result);
+    } else if (strcmp(sname, "WEBGL_compressed_texture_pvrtc") == 0) {
+      Local<Object> result = Object::New(Isolate::GetCurrent());
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGB_PVRTC_4BPPV1_IMG"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGB_PVRTC_4BPPV1_IMG));
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGBA_PVRTC_4BPPV1_IMG"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG));
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGB_PVRTC_2BPPV1_IMG"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG));
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGBA_PVRTC_2BPPV1_IMG"), Number::New(Isolate::GetCurrent(), GL_COMPRESSED_RGBA_PVRTC_2BPPV1_IMG));
+      info.GetReturnValue().Set(result);
+    } else if (strcmp(sname, "WEBGL_compressed_texture_etc1") == 0) {
+      Local<Object> result = Object::New(Isolate::GetCurrent());
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGB_ETC1_WEBGL"), Number::New(Isolate::GetCurrent(), GL_ETC1_RGB8_OES));
+      info.GetReturnValue().Set(result);
+    } else {
+      info.GetReturnValue().Set(Nan::Undefined());
+    }
   }
 }
 
