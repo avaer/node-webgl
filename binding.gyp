@@ -20,7 +20,7 @@
       ],
       'include_dirs': [
         "<!(node -e \"require('nan')\")",
-        '<(module_root_dir)/deps/include',
+        '<(module_root_dir)/node_modules/native-graphics-deps/include',
       ],
       'conditions': [
         ['OS=="mac"',
@@ -38,10 +38,10 @@
         ['OS=="win"',
           {
             'include_dirs': [
-              './deps/include',
+              './node_modules/native-graphics-deps/include',
               ],
             'library_dirs': [
-              './deps/windows/lib/<(target_arch)',
+              './node_modules/native-graphics-deps/windows/lib/<(target_arch)',
               ],
             'libraries': [
               'glew32.lib',
