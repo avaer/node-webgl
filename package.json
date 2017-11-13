@@ -2,7 +2,7 @@
   "author": "Avaer Kazmer <a@modules.io>",
   "name": "node-webgl2",
   "description": "WebGL bindings for node",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "main": "index.js",
   "keywords": [
     "webgl",
