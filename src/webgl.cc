@@ -732,13 +732,15 @@ NAN_METHOD(TexImage2D) {
   int border = info[5]->Int32Value();
   int format = info[6]->Int32Value();
   int type = info[7]->Int32Value();
-  float *pixels=(float*)getImageData(info[8]);
+  char *pixels=(char*)getImageData(info[8]);
 
-  unique_ptr<float[]> pixels2(new float[width * height * 4]);
+  unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
+  int elementSize = byteLength / width / height;
+  unique_ptr<char[]> pixels2(new char[byteLength]);
   for (int y = 0; y < height; y++) {
-    memcpy(pixels2.get() + (y * width), pixels + ((height - 1 - y) * width), width * sizeof(float));
+    memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
   }
-  glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels2.get());
+  glTexImage2D(target, level, internalformat, width, height, border, format, type, &(pixels2.get()[0]));
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -1503,13 +1505,15 @@ NAN_METHOD(TexSubImage2D) {
   GLsizei height = info[5]->Int32Value();
   GLenum format = info[6]->Int32Value();
   GLenum type = info[7]->Int32Value();
-  float *pixels=(float *)getImageData(info[8]);
+  char *pixels=(char*)getImageData(info[8]);
 
-  unique_ptr<float[]> pixels2(new float[width * height * 4]);
+  unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
+  int elementSize = byteLength / width / height;
+  unique_ptr<char[]> pixels2(new char[byteLength]);
   for (int y = 0; y < height; y++) {
-    memcpy(pixels2.get() + (y * width), pixels + ((height - 1 - y) * width), width * sizeof(float));
+    memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
   }
-  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels2.get());
+  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, &(pixels2.get()[0]));
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
