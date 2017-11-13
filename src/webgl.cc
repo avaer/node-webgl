@@ -732,7 +732,7 @@ NAN_METHOD(TexImage2D) {
   int format = info[6]->Int32Value();
   int type = info[7]->Int32Value();
   int num;
-  char *pixels=(char*)getImageData(info[8], num);
+  char *pixels=(char*)getImageData(info[8], &num);
 
   // unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
   // int elementSize = byteLength / width / height;
