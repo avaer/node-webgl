@@ -719,6 +719,7 @@ NAN_METHOD(BindTexture) {
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
+char texPixels[4096 * 4096 * 4];
 
 NAN_METHOD(TexImage2D) {
   Nan::HandleScope scope;
@@ -734,14 +735,13 @@ NAN_METHOD(TexImage2D) {
   int num;
   char *pixels=(char*)getImageData(info[8], &num);
 
-  // unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
-  // int elementSize = byteLength / width / height;
-  unique_ptr<char[]> pixels2(new char[num]);
-  /* for (int y = 0; y < height; y++) {
-    memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
-  } */
-  // glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, &(pixels2.get()[0]));
-  glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
+  if (pixels != nullptr) {
+    int elementSize = num / width / height;
+    for (int y = 0; y < height; y++) {
+      memcpy(&(texPixels[(height - 1 - y) * width * elementSize]), &pixels[y * width * elementSize], width * elementSize);
+    }
+  }
+  glTexImage2D(target, level, internalformat, width, height, border, format, type, texPixels);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -1506,15 +1506,15 @@ NAN_METHOD(TexSubImage2D) {
   GLsizei height = info[5]->Int32Value();
   GLenum format = info[6]->Int32Value();
   GLenum type = info[7]->Int32Value();
-  char *pixels=(char*)getImageData(info[8]);
+  int num;
+  char *pixels=(char*)getImageData(info[8], &num);
 
-  // unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
-  // int elementSize = byteLength / width / height;
-  unique_ptr<char[]> pixels2(new char[4]);
-  /* for (int y = 0; y < height; y++) {
-    memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
-  } */
-  // glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, &(pixels2.get()[0]));
+  if (pixels != nullptr) {
+    int elementSize = num / width / height;
+    for (int y = 0; y < height; y++) {
+      memcpy(&(texPixels[(height - 1 - y) * width * elementSize]), &pixels[y * width * elementSize], width * elementSize);
+    }
+  }
   glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 
   info.GetReturnValue().Set(Nan::Undefined());
