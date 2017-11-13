@@ -66,14 +66,14 @@ inline Type* getArrayData(Local<Value> arg, int* num = NULL) {
   return data;
 }
 
-inline void *getImageData(Local<Value> arg) {
+inline void *getImageData(Local<Value> arg, int* num = NULL) {
   void *pixels = NULL;
   if (!arg->IsNull()) {
     Local<Object> obj = Local<Object>::Cast(arg);
     if (!obj->IsObject()){
       Nan::ThrowError("Bad texture argument");
     }else if(obj->IsArrayBufferView()){
-      pixels = getArrayData<BYTE>(obj);
+      pixels = getArrayData<BYTE>(obj, num);
     }else{
       Nan::ThrowError("Bad texture argument");
       // pixels = node::Buffer::Data(Nan::Get(obj, JS_STR("data")).ToLocalChecked());
@@ -731,11 +731,12 @@ NAN_METHOD(TexImage2D) {
   int border = info[5]->Int32Value();
   int format = info[6]->Int32Value();
   int type = info[7]->Int32Value();
-  char *pixels=(char*)getImageData(info[8]);
+  int num;
+  char *pixels=(char*)getImageData(info[8], num);
 
   // unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
   // int elementSize = byteLength / width / height;
-  unique_ptr<char[]> pixels2(new char[4]);
+  unique_ptr<char[]> pixels2(new char[num]);
   /* for (int y = 0; y < height; y++) {
     memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
   } */
