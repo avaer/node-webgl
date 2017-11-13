@@ -740,7 +740,8 @@ NAN_METHOD(TexImage2D) {
   /* for (int y = 0; y < height; y++) {
     memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
   } */
-  glTexImage2D(target, level, internalformat, width, height, border, format, type, &(pixels2.get()[0]));
+  // glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, &(pixels2.get()[0]));
+  glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -1513,7 +1514,8 @@ NAN_METHOD(TexSubImage2D) {
   /* for (int y = 0; y < height; y++) {
     memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
   } */
-  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, &(pixels2.get()[0]));
+  // glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, &(pixels2.get()[0]));
+  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
