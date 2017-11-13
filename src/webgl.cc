@@ -734,11 +734,7 @@ NAN_METHOD(TexImage2D) {
   int type = info[7]->Int32Value();
   float *pixels=(float*)getImageData(info[8]);
 
-  unique_ptr<float[]> pixels2(new float[width * height * 4]);
-  for (int y = 0; y < height; y++) {
-    memcpy(pixels2.get() + (y * width), pixels + ((height - 1 - y) * width), width * sizeof(float));
-  }
-  glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels2.get());
+  glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -1505,11 +1501,7 @@ NAN_METHOD(TexSubImage2D) {
   GLenum type = info[7]->Int32Value();
   float *pixels=(float *)getImageData(info[8]);
 
-  unique_ptr<float[]> pixels2(new float[width * height * 4]);
-  for (int y = 0; y < height; y++) {
-    memcpy(pixels2.get() + (y * width), pixels + ((height - 1 - y) * width), width * sizeof(float));
-  }
-  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels2.get());
+  glTexSubImage2D(target, level, xoffset, yoffset, width, height, format, type, pixels);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
