@@ -734,9 +734,9 @@ NAN_METHOD(TexImage2D) {
   int type = info[7]->Int32Value();
   char *pixels=(char*)getImageData(info[8]);
 
-  unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
+  // unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
   // int elementSize = byteLength / width / height;
-  unique_ptr<char[]> pixels2(new char[byteLength]);
+  unique_ptr<char[]> pixels2(new char[4]);
   /* for (int y = 0; y < height; y++) {
     memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
   } */
@@ -1508,9 +1508,9 @@ NAN_METHOD(TexSubImage2D) {
   GLenum type = info[7]->Int32Value();
   char *pixels=(char*)getImageData(info[8]);
 
-  unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
+  // unsigned int byteLength = Local<ArrayBufferView>::Cast(info[8])->ByteLength();
   // int elementSize = byteLength / width / height;
-  unique_ptr<char[]> pixels2(new char[byteLength]);
+  unique_ptr<char[]> pixels2(new char[4]);
   /* for (int y = 0; y < height; y++) {
     memcpy(&(pixels2.get()[y * width * elementSize]), &pixels[(height - 1 - y) * width * elementSize], width * elementSize);
   } */
