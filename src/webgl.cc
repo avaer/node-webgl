@@ -73,11 +73,10 @@ inline void *getImageData(Local<Value> arg) {
     if (!obj->IsObject()){
       Nan::ThrowError("Bad texture argument");
     }else if(obj->IsArrayBufferView()){
-        int num;
-        
-        pixels = getArrayData<BYTE>(obj, &num);
+      pixels = getArrayData<BYTE>(obj);
     }else{
-        pixels = node::Buffer::Data(Nan::Get(obj, JS_STR("data")).ToLocalChecked());
+      Nan::ThrowError("Bad texture argument");
+      // pixels = node::Buffer::Data(Nan::Get(obj, JS_STR("data")).ToLocalChecked());
     }
   }
   return pixels;
