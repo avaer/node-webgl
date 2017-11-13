@@ -50,6 +50,7 @@ void init(Handle<Object> target)
   Nan::SetMethod(target, "bindAttribLocation", webgl::BindAttribLocation);
   Nan::SetMethod(target, "getError", webgl::GetError);
   Nan::SetMethod(target, "drawArrays", webgl::DrawArrays);
+  Nan::SetMethod(target, "drawArraysInstancedANGLE", webgl::DrawArraysInstancedANGLE);
   Nan::SetMethod(target, "uniformMatrix2fv", webgl::UniformMatrix2fv);
   Nan::SetMethod(target, "uniformMatrix3fv", webgl::UniformMatrix3fv);
   Nan::SetMethod(target, "uniformMatrix4fv", webgl::UniformMatrix4fv);

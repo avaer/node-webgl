@@ -38,6 +38,7 @@ NAN_METHOD(PixelStorei);
 NAN_METHOD(BindAttribLocation);
 NAN_METHOD(GetError);
 NAN_METHOD(DrawArrays);
+NAN_METHOD(DrawArraysInstancedANGLE);
 NAN_METHOD(UniformMatrix2fv);
 NAN_METHOD(UniformMatrix3fv);
 NAN_METHOD(UniformMatrix4fv);
@@ -79,6 +80,7 @@ NAN_METHOD(EnableVertexAttribArray);
 NAN_METHOD(VertexAttribPointer);
 NAN_METHOD(ActiveTexture);
 NAN_METHOD(DrawElements);
+NAN_METHOD(DrawElementsInstancedANGLE);
 NAN_METHOD(Flush);
 NAN_METHOD(Finish);
 
@@ -90,6 +92,7 @@ NAN_METHOD(VertexAttrib1fv);
 NAN_METHOD(VertexAttrib2fv);
 NAN_METHOD(VertexAttrib3fv);
 NAN_METHOD(VertexAttrib4fv);
+NAN_METHOD(VertexAttribDivisorANGLE);
 
 NAN_METHOD(BlendColor);
 NAN_METHOD(BlendEquationSeparate);

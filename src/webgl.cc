@@ -412,6 +412,19 @@ NAN_METHOD(DrawArrays) {
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
+NAN_METHOD(DrawArraysInstancedANGLE) {
+  Nan::HandleScope scope;
+
+  int mode = info[0]->Int32Value();
+  int first = info[1]->Int32Value();
+  int count = info[2]->Int32Value();
+  int primcount = info[3]->Int32Value();
+
+  glDrawArraysInstancedANGLE(mode, first, count, primcount);
+
+  info.GetReturnValue().Set(Nan::Undefined());
+}
+
 NAN_METHOD(UniformMatrix2fv) {
   Nan::HandleScope scope;
 
@@ -965,6 +978,18 @@ NAN_METHOD(DrawElements) {
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
+NAN_METHOD(DrawElementsInstancedANGLE) {
+  Nan::HandleScope scope;
+
+  int mode = info[0]->Int32Value();
+  int count = info[1]->Int32Value();
+  int type = info[2]->Int32Value();
+  GLvoid *offset = reinterpret_cast<GLvoid*>(info[3]->Uint32Value());
+  int primcount = info[4]->Int32Value();
+  glDrawElementsInstancedANGLE(mode, count, type, offset, primcount);
+  info.GetReturnValue().Set(Nan::Undefined());
+}
+
 
 NAN_METHOD(Flush) {
   Nan::HandleScope scope;
@@ -1060,6 +1085,16 @@ NAN_METHOD(VertexAttrib4fv) {
   int indx = info[0]->Int32Value();
   GLfloat *data = getArrayData<GLfloat>(info[1]);
   glVertexAttrib4fv(indx, data);
+
+  info.GetReturnValue().Set(Nan::Undefined());
+}
+
+NAN_METHOD(VertexAttribDivisorANGLE) {
+  Nan::HandleScope scope;
+
+  unsigned int index = info[0]->Uint32Value();
+  unsigned int divisor = info[1]->Uint32Value();
+  glVertexAttribDivisorANGLE(index, divisor);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -1904,6 +1939,10 @@ NAN_METHOD(GetExtension) {
     } else if (strcmp(sname, "WEBGL_compressed_texture_etc1") == 0) {
       Local<Object> result = Object::New(Isolate::GetCurrent());
       result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "COMPRESSED_RGB_ETC1_WEBGL"), Number::New(Isolate::GetCurrent(), GL_ETC1_RGB8_OES));
+      info.GetReturnValue().Set(result);
+    } else if (strcmp(sname, "ANGLE_instanced_arrays") == 0) {
+      Local<Object> result = Object::New(Isolate::GetCurrent());
+      result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE"), Number::New(Isolate::GetCurrent(), GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE));
       info.GetReturnValue().Set(result);
     } else {
       info.GetReturnValue().Set(Nan::Undefined());
