@@ -198,7 +198,7 @@ NAN_METHOD(Uniform1fv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       float32Array->Set(i, array->Get(i));
     }
@@ -219,7 +219,7 @@ NAN_METHOD(Uniform2fv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       float32Array->Set(i, array->Get(i));
     }
@@ -242,7 +242,7 @@ NAN_METHOD(Uniform3fv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       float32Array->Set(i, array->Get(i));
     }
@@ -265,7 +265,7 @@ NAN_METHOD(Uniform4fv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       float32Array->Set(i, array->Get(i));
     }
@@ -288,7 +288,7 @@ NAN_METHOD(Uniform1iv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       int32Array->Set(i, array->Get(i));
     }
@@ -309,7 +309,7 @@ NAN_METHOD(Uniform2iv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       int32Array->Set(i, array->Get(i));
     }
@@ -332,7 +332,7 @@ NAN_METHOD(Uniform3iv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       int32Array->Set(i, array->Get(i));
     }
@@ -355,7 +355,7 @@ NAN_METHOD(Uniform4iv) {
   if (info[1]->IsArray()) {
     Local<Array> array = Local<Array>::Cast(info[1]);
     unsigned int length = array->Length();
-    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length), 0, length / 4);
+    Local<Int32Array> int32Array = Int32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
     for (unsigned int i = 0; i < length; i++) {
       int32Array->Set(i, array->Get(i));
     }
