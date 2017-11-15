@@ -31,6 +31,6 @@
     "bindings": "^1.2.1",
     "nan": "^2.1.0",
     "native-graphics-deps": "0.0.1",
-    "node-glfw2": "0.0.10"
+    "node-glfw2": "0.0.11"
   }
 }
