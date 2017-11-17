@@ -23,7 +23,7 @@
     "url": "https://github.com/modulesio/node-webgl.git"
   },
   "scripts": {
-    "preinstall": "npm install native-graphics-deps",
+    "preinstall": "npm install native-graphics-deps --no-package-lock",
     "install": "node-gyp rebuild"
   },
   "license": "BSD-3-Clause",
