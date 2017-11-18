@@ -420,7 +420,7 @@ NAN_METHOD(DrawArraysInstancedANGLE) {
   int count = info[2]->Int32Value();
   int primcount = info[3]->Int32Value();
 
-  glDrawArraysInstancedANGLE(mode, first, count, primcount);
+  glDrawArraysInstanced(mode, first, count, primcount);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
@@ -986,7 +986,7 @@ NAN_METHOD(DrawElementsInstancedANGLE) {
   int type = info[2]->Int32Value();
   GLvoid *offset = reinterpret_cast<GLvoid*>(info[3]->Uint32Value());
   int primcount = info[4]->Int32Value();
-  glDrawElementsInstancedANGLE(mode, count, type, offset, primcount);
+  glDrawElementsInstanced(mode, count, type, offset, primcount);
   info.GetReturnValue().Set(Nan::Undefined());
 }
 
@@ -1094,7 +1094,7 @@ NAN_METHOD(VertexAttribDivisorANGLE) {
 
   unsigned int index = info[0]->Uint32Value();
   unsigned int divisor = info[1]->Uint32Value();
-  glVertexAttribDivisorANGLE(index, divisor);
+  glVertexAttribDivisor(index, divisor);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }
