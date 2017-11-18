@@ -1943,6 +1943,9 @@ NAN_METHOD(GetExtension) {
     } else if (strcmp(sname, "ANGLE_instanced_arrays") == 0) {
       Local<Object> result = Object::New(Isolate::GetCurrent());
       result->Set(String::NewFromUtf8(Isolate::GetCurrent(), "GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE"), Number::New(Isolate::GetCurrent(), GL_VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE));
+      Nan::SetMethod(result, "drawArraysInstancedANGLE", webgl::DrawArraysInstancedANGLE);
+      Nan::SetMethod(result, "drawElementsInstancedANGLE", webgl::DrawElementsInstancedANGLE);
+      Nan::SetMethod(result, "vertexAttribDivisorANGLE", webgl::VertexAttribDivisorANGLE);
       info.GetReturnValue().Set(result);
     } else {
       info.GetReturnValue().Set(Nan::Undefined());
