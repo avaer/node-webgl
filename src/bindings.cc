@@ -95,6 +95,7 @@ void init(Handle<Object> target)
   Nan::SetMethod(target, "vertexAttribPointer", webgl::VertexAttribPointer);
   Nan::SetMethod(target, "activeTexture", webgl::ActiveTexture);
   Nan::SetMethod(target, "drawElements", webgl::DrawElements);
+  Nan::SetMethod(target, "drawElementsInstancedANGLE", webgl::DrawElementsInstancedANGLE);
   Nan::SetMethod(target, "flush", webgl::Flush);
   Nan::SetMethod(target, "finish", webgl::Finish);
 
@@ -106,6 +107,7 @@ void init(Handle<Object> target)
   Nan::SetMethod(target, "vertexAttrib2fv", webgl::VertexAttrib2fv);
   Nan::SetMethod(target, "vertexAttrib3fv", webgl::VertexAttrib3fv);
   Nan::SetMethod(target, "vertexAttrib4fv", webgl::VertexAttrib4fv);
+  Nan::SetMethod(target, "vertexAttribDivisorANGLE", webgl::VertexAttribDivisorANGLE);
 
   Nan::SetMethod(target, "blendColor", webgl::BlendColor);
   Nan::SetMethod(target, "blendEquationSeparate", webgl::BlendEquationSeparate);
