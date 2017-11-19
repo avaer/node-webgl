@@ -57,7 +57,7 @@ inline Type* getArrayData(Local<Value> arg, int* num = NULL) {
     else if(arg->IsObject()) {
       Local<ArrayBufferView> arr = Local<ArrayBufferView>::Cast(arg);
       if(num) *num=arr->ByteLength()/sizeof(Type);
-      data = reinterpret_cast<Type*>(arr->Buffer()->GetContents().Data());
+      data = reinterpret_cast<Type*>(arr->Buffer()->GetContents().Data() + arr->ByteOffset());
     }
     else
       Nan::ThrowError("Bad array argument");
@@ -879,7 +879,7 @@ NAN_METHOD(BufferData) {
     int element_size = 1;
     Local<ArrayBufferView> arr = Local<ArrayBufferView>::Cast(obj);
     int size = arr->ByteLength()* element_size;
-    void* data = arr->Buffer()->GetContents().Data();
+    void* data = arr->Buffer()->GetContents().Data() + arr->ByteOffset();
     
     glBufferData(target, size, data, usage);
   }
@@ -902,7 +902,7 @@ NAN_METHOD(BufferSubData) {
    int element_size = 1;
    Local<ArrayBufferView> arr = Local<ArrayBufferView>::Cast(obj);
    int size = arr->ByteLength()* element_size;
-   void* data = arr->Buffer()->GetContents().Data();
+   void* data = arr->Buffer()->GetContents().Data() + arr->ByteOffset();
 
   glBufferSubData(target, offset, size, data);
 
