@@ -733,6 +733,20 @@ NAN_METHOD(BindTexture) {
 }
 
 char texPixels[4096 * 4096 * 4];
+NAN_METHOD(FlipTextureData) {
+  Nan::HandleScope scope;
+
+  int num;
+  char *pixels=(char*)getArrayData<BYTE>(info[0], &num);
+  int width = info[1]->Int32Value();
+  int height = info[2]->Int32Value();
+
+  int elementSize = num / width / height;
+  for (int y = 0; y < height; y++) {
+    memcpy(&(texPixels[(height - 1 - y) * width * elementSize]), &pixels[y * width * elementSize], width * elementSize);
+  }
+  memcpy(pixels, texPixels, num);
+}
 
 NAN_METHOD(TexImage2D) {
   Nan::HandleScope scope;
@@ -748,13 +762,7 @@ NAN_METHOD(TexImage2D) {
   int num;
   char *pixels=(char*)getImageData(info[8], &num);
 
-  if (pixels != nullptr) {
-    int elementSize = num / width / height;
-    for (int y = 0; y < height; y++) {
-      memcpy(&(texPixels[(height - 1 - y) * width * elementSize]), &pixels[y * width * elementSize], width * elementSize);
-    }
-  }
-  glTexImage2D(target, level, internalformat, width, height, border, format, type, texPixels);
+  glTexImage2D(target, level, internalformat, width, height, border, format, type, pixels);
 
   info.GetReturnValue().Set(Nan::Undefined());
 }

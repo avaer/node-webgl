@@ -62,6 +62,7 @@ NAN_METHOD(Disable);
 NAN_METHOD(Enable);
 NAN_METHOD(CreateTexture);
 NAN_METHOD(BindTexture);
+NAN_METHOD(FlipTextureData);
 NAN_METHOD(TexImage2D);
 NAN_METHOD(TexParameteri);
 NAN_METHOD(TexParameterf);
