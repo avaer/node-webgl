@@ -426,8 +426,21 @@ NAN_METHOD(UniformMatrix2fv) {
   GLint location = info[0]->Int32Value();
   GLboolean transpose = info[1]->BooleanValue();
 
-  GLsizei count=0;
-  GLfloat* data=getArrayData<GLfloat>(info[2],&count);
+  GLsizei count;
+  GLfloat* data;
+  // GLfloat* data=getArrayData<GLfloat>(info[2],&count);
+
+  if (info[2]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[2]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    data=getArrayData<GLfloat>(float32Array,&count);
+  } else {
+    data=getArrayData<GLfloat>(info[2],&count);
+  }
 
   if (count < 4) {
     Nan::ThrowError("Not enough data for UniformMatrix2fv");
@@ -443,8 +456,22 @@ NAN_METHOD(UniformMatrix3fv) {
 
   GLint location = info[0]->Int32Value();
   GLboolean transpose = info[1]->BooleanValue();
-  GLsizei count=0;
-  GLfloat* data=getArrayData<GLfloat>(info[2],&count);
+
+  GLsizei count;
+  GLfloat* data;
+  // GLfloat* data=getArrayData<GLfloat>(info[2],&count);
+
+  if (info[2]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[2]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    data=getArrayData<GLfloat>(float32Array,&count);
+  } else {
+    data=getArrayData<GLfloat>(info[2],&count);
+  }
 
   if (count < 9) {
     Nan::ThrowError("Not enough data for UniformMatrix3fv");
@@ -459,8 +486,22 @@ NAN_METHOD(UniformMatrix4fv) {
 
   GLint location = info[0]->Int32Value();
   GLboolean transpose = info[1]->BooleanValue();
-  GLsizei count=0;
-  GLfloat* data=getArrayData<GLfloat>(info[2],&count);
+
+  GLsizei count;
+  GLfloat* data;
+  // GLfloat* data=getArrayData<GLfloat>(info[2],&count);
+
+  if (info[2]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[2]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    data=getArrayData<GLfloat>(float32Array,&count);
+  } else {
+    data=getArrayData<GLfloat>(info[2],&count);
+  }
 
   if (count < 16) {
     Nan::ThrowError("Not enough data for UniformMatrix4fv");
@@ -1056,7 +1097,21 @@ NAN_METHOD(VertexAttrib1fv) {
   Nan::HandleScope scope;
 
   int indx = info[0]->Int32Value();
-  GLfloat *data = getArrayData<GLfloat>(info[1]);
+  GLfloat *data;
+  // GLfloat *data = getArrayData<GLfloat>(info[1]);
+
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    data=getArrayData<GLfloat>(float32Array);
+  } else {
+    data=getArrayData<GLfloat>(info[1]);
+  }
+
   glVertexAttrib1fv(indx, data);
 
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1066,7 +1121,21 @@ NAN_METHOD(VertexAttrib2fv) {
   Nan::HandleScope scope;
 
   int indx = info[0]->Int32Value();
-  GLfloat *data = getArrayData<GLfloat>(info[1]);
+  GLfloat *data;
+  // GLfloat *data = getArrayData<GLfloat>(info[1]);
+
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    data=getArrayData<GLfloat>(float32Array);
+  } else {
+    data=getArrayData<GLfloat>(info[1]);
+  }
+
   glVertexAttrib2fv(indx, data);
 
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1076,7 +1145,21 @@ NAN_METHOD(VertexAttrib3fv) {
   Nan::HandleScope scope;
 
   int indx = info[0]->Int32Value();
-  GLfloat *data = getArrayData<GLfloat>(info[1]);
+  GLfloat *data;
+  // GLfloat *data = getArrayData<GLfloat>(info[1]);
+
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    data=getArrayData<GLfloat>(float32Array);
+  } else {
+    data=getArrayData<GLfloat>(info[1]);
+  }
+
   glVertexAttrib3fv(indx, data);
 
   info.GetReturnValue().Set(Nan::Undefined());
@@ -1086,7 +1169,21 @@ NAN_METHOD(VertexAttrib4fv) {
   Nan::HandleScope scope;
 
   int indx = info[0]->Int32Value();
-  GLfloat *data = getArrayData<GLfloat>(info[1]);
+  GLfloat *data;
+  // GLfloat *data = getArrayData<GLfloat>(info[1]);
+
+  if (info[1]->IsArray()) {
+    Local<Array> array = Local<Array>::Cast(info[1]);
+    unsigned int length = array->Length();
+    Local<Float32Array> float32Array = Float32Array::New(ArrayBuffer::New(Isolate::GetCurrent(), length * 4), 0, length);
+    for (unsigned int i = 0; i < length; i++) {
+      float32Array->Set(i, array->Get(i));
+    }
+    data=getArrayData<GLfloat>(float32Array);
+  } else {
+    data=getArrayData<GLfloat>(info[1]);
+  }
+
   glVertexAttrib4fv(indx, data);
 
   info.GetReturnValue().Set(Nan::Undefined());
