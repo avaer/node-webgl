@@ -44,23 +44,18 @@ static GLuint ToGLuint(const void* ptr) {
 template<typename Type>
 inline Type* getArrayData(Local<Value> arg, int* num = NULL) {
   Type *data=NULL;
-  if(num) *num=0;
+  if (num) *num=0;
 
-  if(!arg->IsNull()) {
-    if(arg->IsArray()) {
+  if (!arg->IsNull()) {
+    if (arg->IsArray()) {
       Nan::ThrowError("Not support array type");
-      /*
-      Local<Array> arr = Local<Array>::Cast(arg);
-      if(num) *num=arr->Length();
-      data = reinterpret_cast<Type*>(arr->GetIndexedPropertiesExternalArrayData());*/
-    }
-    else if(arg->IsObject()) {
+    } else if (arg->IsObject()) {
       Local<ArrayBufferView> arr = Local<ArrayBufferView>::Cast(arg);
-      if(num) *num=arr->ByteLength()/sizeof(Type);
+      if (num) *num=arr->ByteLength()/sizeof(Type);
       data = reinterpret_cast<Type*>((char *)arr->Buffer()->GetContents().Data() + arr->ByteOffset());
-    }
-    else
+    } else {
       Nan::ThrowError("Bad array argument");
+    }
   }
 
   return data;
@@ -72,9 +67,9 @@ inline void *getImageData(Local<Value> arg, int* num = NULL) {
     Local<Object> obj = Local<Object>::Cast(arg);
     if (!obj->IsObject()){
       Nan::ThrowError("Bad texture argument");
-    }else if(obj->IsArrayBufferView()){
+    } else if (obj->IsArrayBufferView()){
       pixels = getArrayData<BYTE>(obj, num);
-    }else{
+    } else {
       Nan::ThrowError("Bad texture argument");
       // pixels = node::Buffer::Data(Nan::Get(obj, JS_STR("data")).ToLocalChecked());
     }
